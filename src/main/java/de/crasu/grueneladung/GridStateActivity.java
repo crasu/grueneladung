@@ -23,15 +23,10 @@ public class GridStateActivity extends Activity {
 
         setContentView(R.layout.activity_main);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+        progressDialog = ProgressDialog.show(this, "", getString(R.string.waiting_message), true);
 
-        progressDialog = ProgressDialog.show(this, "", getString(R.string.waiting_message), true);        
-
-        new PowerGridStatusTask().execute();
+        (new PowerGridStatusTask()).execute();
     }
     
     private class PowerGridStatusTask extends AsyncTask<Void, Void, Boolean> {
@@ -52,7 +47,8 @@ public class GridStateActivity extends Activity {
                 image.setImageResource(R.drawable.nuclear_power_plant);
             }
             
-            progressDialog.dismiss();            
+            progressDialog.dismiss();
+
             startWindowClosingTimer();
         }
     }    

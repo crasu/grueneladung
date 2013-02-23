@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-public class PowerConnectionReceiver extends BroadcastReceiver {
+public class PowerStatusReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.i("power", "got intend: " + intent.toString());
