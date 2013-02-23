@@ -2,7 +2,9 @@ bin/
 gen/
 tests/bin/
 tmp
+classes
 target
+.idea/
 .settings
 *.ipk
 *.apk
@@ -10,3 +12,4 @@ target
 *.class
 .classpath
 .project
+*.iml
