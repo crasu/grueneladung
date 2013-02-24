@@ -13,7 +13,7 @@ public class PowerStatusReceiver extends BroadcastReceiver {
         if (Intent.ACTION_POWER_CONNECTED.equals(intent.getAction())) {
             Log.i("power", "charging");
 
-            Intent in = new Intent(context, GridStateActivity.class);
+            Intent in = new Intent(context, GridStatusActivity.class);
             in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(in);
         }

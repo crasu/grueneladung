@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-public class GridStateActivity extends Activity {
+public class GridStatusActivity extends Activity {
     private static final int WINDOW_CLOSING_DELAY = 4000;
     private Timer windowClosingTimer;
     ProgressDialog progressDialog;
