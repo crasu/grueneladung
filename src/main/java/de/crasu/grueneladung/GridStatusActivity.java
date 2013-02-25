@@ -1,14 +1,11 @@
 package de.crasu.grueneladung;
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
@@ -29,26 +26,17 @@ public class GridStatusActivity extends Activity {
         (new PowerGridStatusTask()).execute();
     }
     
-    private class PowerGridStatusTask extends AsyncTask<Void, Void, Boolean> {
-        protected Boolean doInBackground(Void... unused) {
-            List<PowerGridValues> pgvs = (new TwitterHelper()).retrievePowerInformation();   
-            
-            Log.i("power", "Green energy is: " + (new PowerGridInformationRetriever()).isEnergyGreen(pgvs));            
-            return (new PowerGridInformationRetriever()).isEnergyGreen(pgvs);
+    private class PowerGridStatusTask extends AbstractPowerGridStatusTask {
+        @Override
+        protected ImageView getImageView() {
+            return(ImageView) findViewById(R.id.chargeStatusImageView);
         }
 
         @Override
-        protected void onPostExecute(Boolean powerState) {          
-            ImageView image = (ImageView) findViewById(R.id.imageView);
-            
-            if (powerState) {
-                image.setImageResource(R.drawable.flower);
-            } else {
-                image.setImageResource(R.drawable.nuclear_power_plant);
-            }
+        protected void onPostExecute(Boolean powerState) {
+            super.onPostExecute(powerState);
             
             progressDialog.dismiss();
-
             startWindowClosingTimer();
         }
     }    

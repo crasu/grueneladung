@@ -9,8 +9,8 @@
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/greenLoadedEnergie"
-            android:id="@+id/textView"/>
+            android:text="@string/green_loaded_energy"
+            />
 
     <ProgressBar
             android:layout_width="fill_parent"
@@ -18,5 +18,25 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:id="@+id/progressBar"
             android:max="100"
-            android:progress="35"/>
+            android:progress="35"
+            />
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/chargeTextView"/>
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Aktueller Netzstatus"
+            android:id="@+id/textView"
+            />
+
+    <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/chargeStatusImageView"
+            android:maxHeight="393dp"
+            android:maxWidth="303dp"/>
 </LinearLayout>
