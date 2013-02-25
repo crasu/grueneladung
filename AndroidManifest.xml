@@ -19,7 +19,7 @@
                 android:name=".GridStatusActivity"
                 android:label="@string/app_name"/>
 
-        <activity android:name="status.ChargeStatusActivity"
+        <activity android:name="de.crasu.grueneladung.status.ChargeStatusActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

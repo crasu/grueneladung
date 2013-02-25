@@ -1,4 +1,4 @@
-package status;
+package de.crasu.grueneladung.status;
 
 import android.app.Activity;
 import android.os.Bundle;
