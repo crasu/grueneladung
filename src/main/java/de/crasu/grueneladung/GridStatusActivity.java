@@ -29,7 +29,7 @@ public class GridStatusActivity extends Activity {
     private class PowerGridStatusTask extends AbstractPowerGridStatusTask {
         @Override
         protected ImageView getImageView() {
-            return(ImageView) findViewById(R.id.chargeStatusImageView);
+            return(ImageView) findViewById(R.id.gridStatusImageView);
         }
 
         @Override

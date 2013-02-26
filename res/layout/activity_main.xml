@@ -6,10 +6,11 @@
                 tools:context=".MainActivity">
 
     <ImageView
-            android:id="@+id/chargeStatusImageView"
+            android:id="@+id/gridStatusImageView"
             android:layout_width="303dp"
             android:layout_height="393dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:contentDescription="@string/blume_description"/>
+            android:contentDescription="@string/blume_description"
+            android:focusableInTouchMode="false"/>
 </RelativeLayout>

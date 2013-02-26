@@ -1,11 +1,19 @@
 package de.crasu.grueneladung;
 
+import android.util.Log;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PowerGridInformationRetriever {
-    public PowerGridValues parseTweet(String tweetText) {
+    TwitterHelper twitterHelper = new TwitterHelper();
+
+    public void setTwitterHelper(TwitterHelper twitterHelper) {
+        this.twitterHelper = twitterHelper;
+    }
+
+    PowerGridValues parseTweet(String tweetText) {
         PowerGridValues pgv = null;
         
         Pattern p = Pattern.compile("Braunkohle ges.: (\\d+)MW\\/ Steinkohle ges.: (\\d+)MW\\/ Gas ges.: (\\d+)MW\\/ Kernenergie ges.: (\\d+)MW/");
@@ -22,7 +30,7 @@ public class PowerGridInformationRetriever {
         return pgv;        
     }
     
-    public double calcAverageGasPercentage(List<PowerGridValues> pgvs) {
+    double calcAverageGasPercentage(List<PowerGridValues> pgvs) {
         if(pgvs == null || pgvs.size() < 1)
             throw new RuntimeException("Reject");
         
@@ -36,14 +44,19 @@ public class PowerGridInformationRetriever {
         return avg;
     }
     
-    public Boolean isEnergyGreen(List<PowerGridValues> pgvs) {
+    public Boolean isEnergyGreen() {
+        List<PowerGridValues> pgvs = twitterHelper.retrievePowerInformation();
+
         if(pgvs == null || pgvs.size() < 1)
             return false;
         
         double avgGasPercantage = calcAverageGasPercentage(pgvs);
         PowerGridValues pgv = pgvs.get(0);
         double currentGasPercentage = (double) (pgv.getGas()) / pgv.getOverallPower();
-        
-        return (currentGasPercentage < avgGasPercantage);
+
+        boolean isEneryGreen = (currentGasPercentage < avgGasPercantage);
+        Log.i("power", "Green energy is: " + isEneryGreen);
+
+        return isEneryGreen;
     }
 }

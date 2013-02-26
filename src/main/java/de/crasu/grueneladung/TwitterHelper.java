@@ -21,7 +21,7 @@ public class TwitterHelper {
         return result.getTweets();
     }
 
-    List<PowerGridValues> retrievePowerInformation() {
+    public List<PowerGridValues> retrievePowerInformation() {
         List<Tweet> tweets = null;
         try {
             tweets = retrieveTweets();

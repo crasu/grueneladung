@@ -10,10 +10,7 @@ abstract public class AbstractPowerGridStatusTask extends AsyncTask<Void, Void, 
     abstract protected ImageView getImageView();
 
     protected Boolean doInBackground(Void... unused) {
-        List<PowerGridValues> pgvs = (new TwitterHelper()).retrievePowerInformation();
-
-        Log.i("power", "Green energy is: " + (new PowerGridInformationRetriever()).isEnergyGreen(pgvs));
-        return (new PowerGridInformationRetriever()).isEnergyGreen(pgvs);
+        return (new PowerGridInformationRetriever()).isEnergyGreen();
     }
 
     @Override
