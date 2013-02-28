@@ -17,10 +17,6 @@ public class ChargeStatusActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        ChargeReceiver receiver = new ChargeReceiver();
-        registerReceiver(receiver, filter);
-
         setContentView(R.layout.activity_charge_status);
     }
 
