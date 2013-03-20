@@ -1,11 +1,11 @@
 language: java
 install:  mvn install -X -DskipTests=true
 before_install:
+# Install base Android SDK
+  - sudo apt-get update -qq
+  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
   - wget http://dl.google.com/android/android-sdk_r21-linux.tgz
   - tar -zxf android-sdk_r*-linux.tgz
   - export ANDROID_HOME=$(pwd)/android-sdk-linux
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
   - android update sdk --filter 1,2,5 --no-ui --force
-  - ls -la
-  - ls -la android-sdk-linux
-  - ls -la android-sdk-linux/platform-tools
