@@ -10,3 +10,12 @@ Development commands
 
     adb emu "power ac on" ; adb emu "power ac off"
 
+* Connect to emulator:
+    
+    telnet localhost 5554
+
+* Switch orientation
+    
+    adb emu "sensor set acceleration 9:0:0" 
+    sleep 5
+    adb emu "sensor set acceleration 0:9:0"
