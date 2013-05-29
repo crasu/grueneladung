@@ -1,4 +1,4 @@
-grueneladung
+grueneladung [![Build Status](https://travis-ci.org/crasu/grueneladung.png?branch=master)](https://travis-ci.org/crasu/grueneladung)
 ============
 1.  install android sdk
 2.  set ANDROID_HOME and at tools and plaform_tools to path
