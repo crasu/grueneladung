@@ -1,20 +1,26 @@
 package de.crasu.grueneladung;
 
-import android.os.AsyncTask;
-import android.util.Log;
+import android.content.Context;
 import android.widget.ImageView;
+import com.google.inject.Inject;
+import roboguice.util.RoboAsyncTask;
 
-import java.util.List;
+public abstract class AbstractPowerGridStatusTask extends RoboAsyncTask<Boolean> {
+    @Inject
+    PowerGridInformationRetriever pgir;
 
-abstract public class AbstractPowerGridStatusTask extends AsyncTask<Void, Void, Boolean> {
+    protected AbstractPowerGridStatusTask(Context context) {
+        super(context);
+    }
+
     abstract protected ImageView getImageView();
 
-    protected Boolean doInBackground(Void... unused) {
-        return (new PowerGridInformationRetriever()).isEnergyGreen();
+    public Boolean call() throws Exception {
+        return pgir.isEnergyGreen();
     }
 
     @Override
-    protected void onPostExecute(Boolean powerState) {
+    protected void onSuccess(Boolean powerState) {
         ImageView image = getImageView();
 
         if (powerState) {

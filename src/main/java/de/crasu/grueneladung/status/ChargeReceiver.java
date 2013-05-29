@@ -1,17 +1,21 @@
 package de.crasu.grueneladung.status;
 
-
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.util.Log;
+import com.google.inject.Inject;
 import de.crasu.grueneladung.PowerGridInformationRetriever;
-import de.crasu.grueneladung.R;
+import roboguice.receiver.RoboBroadcastReceiver;
 
-public class ChargeReceiver extends BroadcastReceiver {
+
+
+public class ChargeReceiver extends RoboBroadcastReceiver {
+    @Inject
+    PowerGridInformationRetriever pgir;
+
     static ChargeReceiver receiver;
     boolean counted = false;
 
@@ -33,7 +37,7 @@ public class ChargeReceiver extends BroadcastReceiver {
     private ChargeCounter chargeCounter;
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void handleReceive(Context context, Intent intent) {
         int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
 
         Log.d("power", "got intend: " + intent.toString() + " with status: " + status);
@@ -55,7 +59,7 @@ public class ChargeReceiver extends BroadcastReceiver {
     private class CounterTask extends AsyncTask<Void, Void, Boolean> {
 
         protected Boolean doInBackground(Void... unused) {
-            return (new PowerGridInformationRetriever()).isEnergyGreen();
+            return pgir.isEnergyGreen();
         }
 
         @Override

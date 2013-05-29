@@ -1,30 +1,26 @@
 package de.crasu.grueneladung;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.lessThan;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import com.xtremelabs.robolectric.RobolectricTestRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.xtremelabs.robolectric.RobolectricTestRunner;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-public class PowerGridInformationRetrieverTest {
-    private PowerGridInformationRetriever pgir;
+public class PowerGridInformationRetrieverImplTest {
+    private PowerGridInformationRetrieverImpl pgir;
 
     @Before
     public void setup() {
-        pgir = new PowerGridInformationRetriever();
+        //TODO use injection here instead of new
+        pgir = new PowerGridInformationRetrieverImpl();
         pgir.setTwitterHelper(mock(TwitterHelper.class));
     }
 
@@ -104,7 +100,7 @@ public class PowerGridInformationRetrieverTest {
     }
 
     private void mockPgvs(List<PowerGridValues> pgvs) {
-        TwitterHelper twitterHelperMock = mock(TwitterHelper.class);
+        TwitterHelperImpl twitterHelperMock = mock(TwitterHelperImpl.class);
         when(twitterHelperMock.retrievePowerInformation()).thenReturn(pgvs);
         pgir.setTwitterHelper(twitterHelperMock);
     }

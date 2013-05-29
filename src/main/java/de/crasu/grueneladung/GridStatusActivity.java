@@ -3,13 +3,14 @@ package de.crasu.grueneladung;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import roboguice.activity.RoboActivity;
 
-public class GridStatusActivity extends Activity {
+public class GridStatusActivity extends RoboActivity {
     private static final int WINDOW_CLOSING_DELAY = 4000;
     private Timer windowClosingTimer;
     ProgressDialog progressDialog;
@@ -23,18 +24,22 @@ public class GridStatusActivity extends Activity {
 
         progressDialog = ProgressDialog.show(this, "", getString(R.string.waiting_message), true);
 
-        (new PowerGridStatusTask()).execute();
+        (new PowerGridStatusTask(getApplicationContext())).execute();
     }
     
     private class PowerGridStatusTask extends AbstractPowerGridStatusTask {
+        protected PowerGridStatusTask(Context context) {
+            super(context);
+        }
+
         @Override
         protected ImageView getImageView() {
             return(ImageView) findViewById(R.id.gridStatusImageView);
         }
 
         @Override
-        protected void onPostExecute(Boolean powerState) {
-            super.onPostExecute(powerState);
+        protected void onSuccess(Boolean powerState) {
+            super.onSuccess(powerState);
             
             progressDialog.dismiss();
             startWindowClosingTimer();

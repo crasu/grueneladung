@@ -1,17 +1,16 @@
 package de.crasu.grueneladung.status;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import de.crasu.grueneladung.AbstractPowerGridStatusTask;
 import de.crasu.grueneladung.R;
+import roboguice.activity.RoboActivity;
 
 import static java.lang.Math.min;
 
-public class ChargeStatusActivity extends Activity {
+public class ChargeStatusActivity extends RoboActivity {
     private ChargeCounter chargeCounter;
     protected ProgressBar progressBar;
 
@@ -37,19 +36,23 @@ public class ChargeStatusActivity extends Activity {
     }
 
     private void updateView() {
-        (new PowerGridStatusTask()).execute();
+        (new PowerGridStatusTask(getApplicationContext())).execute();
         progressBar.setProgress((int) min(chargeCounter.getCount(), progressBar.getMax()));
     }
 
     private class PowerGridStatusTask extends AbstractPowerGridStatusTask {
+        protected PowerGridStatusTask(Context context) {
+            super(context);
+        }
+
         @Override
         protected ImageView getImageView() {
             return (ImageView) findViewById(R.id.chargeStatusImageView);
         }
 
         @Override
-        protected void onPostExecute(Boolean powerState) {
-            super.onPostExecute(powerState);
+        protected void onSuccess(Boolean powerState) {
+            super.onSuccess(powerState);
         }
     }
 }
