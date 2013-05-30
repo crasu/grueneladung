@@ -1,6 +1,7 @@
 package de.crasu.grueneladung;
 
-import com.xtremelabs.robolectric.RobolectricTestRunner;
+import com.google.inject.Inject;
+import roboguice.test.RobolectricRoboTestRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,8 +14,9 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricRoboTestRunner.class)
 public class PowerGridInformationRetrieverImplTest {
+    @Inject
     private PowerGridInformationRetrieverImpl pgir;
 
     @Before
