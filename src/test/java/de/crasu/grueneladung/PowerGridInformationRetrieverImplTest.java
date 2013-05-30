@@ -24,22 +24,6 @@ public class PowerGridInformationRetrieverImplTest {
         pgir.setTwitterHelper(mock(TwitterHelper.class));
     }
 
-    @Test 
-    public void parseTweetToPowerGridValues() {        
-        String tweetText = "Braunkohle ges.: 8613MW/ " +
-                "Steinkohle ges.: 0MW/ Gas ges.: 603MW/ " +
-                "Kernenergie ges.: 3960MW/ Gesamt-Summe: 13176MW " +
-                "03.02.13/13:29";
-
-        PowerGridValues pgv = pgir.parseTweet(tweetText);
-        
-        assertThat(pgv.getCoal(), is(8613));        
-        assertThat(pgv.getGas(), is(603));
-        assertThat(pgv.getNuclear(), is(3960));
-        
-        assertThat(pgv.getOverallPower(), is(13176));
-    }
-
     @Test(expected=RuntimeException.class)
     public void CalcAverageGasPercentageThrowsOnEmptyList() {
         List<PowerGridValues> pgvs = new ArrayList<PowerGridValues>();

@@ -2,6 +2,8 @@ package de.crasu.grueneladung;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.inject.Inject;
 import twitter4j.Query;
@@ -41,10 +43,26 @@ public class TwitterHelperImpl implements TwitterHelper {
         List<PowerGridValues> pgvs = new ArrayList<PowerGridValues>();
 
         for (Tweet tweet : tweets) {
-            //TODO cycle dependency to pgir - move parseTweet to TwitterHelper? or return Tweets from this method
-            PowerGridValues pgv = pgir.parseTweet(tweet.getText());
+            PowerGridValues pgv = parseTweet(tweet.getText());
             pgvs.add(pgv);
         }
         return pgvs;
+    }
+
+    public PowerGridValues parseTweet(String tweetText) {
+        PowerGridValues pgv = null;
+
+        Pattern p = Pattern.compile("Braunkohle ges.: (\\d+)MW\\/ Steinkohle ges.: (\\d+)MW\\/ Gas ges.: (\\d+)MW\\/ Kernenergie ges.: (\\d+)MW/");
+        Matcher m = p.matcher(tweetText);
+
+        if(m.find()) {
+            pgv = new PowerGridValues();
+
+            pgv.setCoal(Integer.valueOf(m.group(1)) + Integer.valueOf(m.group(2)));
+            pgv.setGas(Integer.valueOf(m.group(3)));
+            pgv.setNuclear(Integer.valueOf(m.group(4)));
+        }
+
+        return pgv;
     }
 }
