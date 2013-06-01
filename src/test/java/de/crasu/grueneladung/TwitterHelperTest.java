@@ -6,20 +6,23 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import com.google.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import twitter4j.Tweet;
 import twitter4j.TwitterException;
 
-import com.xtremelabs.robolectric.RobolectricTestRunner;
-
-@RunWith(RobolectricTestRunner.class)
+@RunWith(InjectingTestRunner.class)
 public class TwitterHelperTest {
+    @Inject
+    TwitterHelper th;
+
     @Test
     public void rweTweetsAreValid() throws TwitterException {
+
         //TODO use injection here
-        List<Tweet> result = (new TwitterHelperImpl()).retrieveTweets();
+        List<Tweet> result = th.retrieveTweets();
         for (Tweet tweet : result) {
             String text = tweet.getText();
             assertTrue(text.matches("Braunkohle ges.: (\\d+)MW\\/ Steinkohle ges.: (\\d+)MW\\/ Gas ges.: (\\d+)MW\\/ Kernenergie ges.: (\\d+)MW/.*?"));

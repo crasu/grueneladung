@@ -14,15 +14,13 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricRoboTestRunner.class)
+@RunWith(InjectingTestRunner.class)
 public class PowerGridInformationRetrieverImplTest {
     @Inject
     private PowerGridInformationRetrieverImpl pgir;
 
     @Before
     public void setup() {
-        //TODO use injection here instead of new
-        pgir = new PowerGridInformationRetrieverImpl();
         pgir.setTwitterHelper(mock(TwitterHelper.class));
     }
 
