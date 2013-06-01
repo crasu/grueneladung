@@ -15,13 +15,12 @@ public class InjectingTestRunner extends RobolectricRoboTestRunner {
 
     @Override
     public void prepareTest(Object test) {
-        // TODO clarify shadowApplication vs application
         RoboGuice.setBaseApplicationInjector(Robolectric.application, RoboGuice.DEFAULT_STAGE, RoboGuice.newDefaultRoboModule(Robolectric.application), new roboGuiceMainModul());
 
-        Injector injector = RoboGuice.getInjector(Robolectric.getShadowApplication().getApplicationContext());
+        Injector injector = RoboGuice.getInjector(Robolectric.application);
 
         ContextScope scope = injector.getInstance(ContextScope.class);
-        scope.enter(Robolectric.getShadowApplication().getApplicationContext());
+        scope.enter(Robolectric.application);
         injector.injectMembers(test);
     }
 }
