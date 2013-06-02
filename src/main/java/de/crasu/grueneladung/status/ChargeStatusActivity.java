@@ -7,12 +7,16 @@ import android.widget.ProgressBar;
 import de.crasu.grueneladung.AbstractPowerGridStatusTask;
 import de.crasu.grueneladung.R;
 import roboguice.activity.RoboActivity;
+import roboguice.inject.InjectView;
 
 import static java.lang.Math.min;
 
 public class ChargeStatusActivity extends RoboActivity {
-    private ChargeCounter chargeCounter;
+    @InjectView(R.id.progressBar)
     protected ProgressBar progressBar;
+    @InjectView(R.id.chargeStatusImageView)
+    protected ImageView imageView;
+    private ChargeCounter chargeCounter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,9 +32,7 @@ public class ChargeStatusActivity extends RoboActivity {
     @Override
     public void onStart() {
         super.onStart();
-
         chargeCounter = new ChargeCounter(this);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         updateView();
     }
@@ -47,7 +49,7 @@ public class ChargeStatusActivity extends RoboActivity {
 
         @Override
         protected ImageView getImageView() {
-            return (ImageView) findViewById(R.id.chargeStatusImageView);
+            return imageView;
         }
 
         @Override

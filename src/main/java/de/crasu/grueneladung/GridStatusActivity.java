@@ -9,8 +9,12 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import roboguice.activity.RoboActivity;
+import roboguice.inject.InjectView;
 
 public class GridStatusActivity extends RoboActivity {
+    @InjectView(R.id.gridStatusImageView)
+    ImageView imageView;
+
     private static final int WINDOW_CLOSING_DELAY = 4000;
     private Timer windowClosingTimer;
     ProgressDialog progressDialog;
@@ -34,7 +38,7 @@ public class GridStatusActivity extends RoboActivity {
 
         @Override
         protected ImageView getImageView() {
-            return(ImageView) findViewById(R.id.gridStatusImageView);
+            return imageView;
         }
 
         @Override
