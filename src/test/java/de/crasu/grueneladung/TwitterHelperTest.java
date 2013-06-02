@@ -20,8 +20,6 @@ public class TwitterHelperTest {
 
     @Test
     public void rweTweetsAreValid() throws TwitterException {
-
-        //TODO use injection here
         List<Tweet> result = th.retrieveTweets();
         for (Tweet tweet : result) {
             String text = tweet.getText();

@@ -15,9 +15,6 @@ import twitter4j.TwitterFactory;
 import android.util.Log;
 
 public class TwitterHelperImpl implements TwitterHelper {
-    @Inject
-    PowerGridInformationRetriever pgir;
-
     @Override
     public List<Tweet> retrieveTweets() throws TwitterException {
         Twitter twitter = (new TwitterFactory()).getInstance();
