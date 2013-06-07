@@ -17,13 +17,7 @@ public class InjectingTestRunner extends RobolectricRoboTestRunner {
 
     @Override
     public void prepareTest(Object test) {
-        RoboGuice.setBaseApplicationInjector(Robolectric.application, RoboGuice.DEFAULT_STAGE,
-                RoboGuice.newDefaultRoboModule(Robolectric.application), new Module() {
-            @Override
-            public void configure(Binder binder) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-        });
+        RoboGuice.setBaseApplicationInjector(Robolectric.application, RoboGuice.DEFAULT_STAGE, RoboGuice.newDefaultRoboModule(Robolectric.application), new roboGuiceMainModul());
 
         Injector injector = RoboGuice.getInjector(Robolectric.application);
 
