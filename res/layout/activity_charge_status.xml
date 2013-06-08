@@ -6,25 +6,27 @@
               android:layout_height="match_parent"
               android:padding="8dp">
 
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/green_loaded_energy"
-            />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="horizontal"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:paddingTop="4dp"
+                  android:paddingBottom="4dp">
 
-    <ProgressBar
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:id="@+id/progressBar"
-            android:max="100"
-            android:progress="35"
-            />
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/green_loaded_energy"
+                android:layout_gravity="left"/>
 
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/chargeTextView"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/chargeCount"
+                android:layout_gravity="right"
+                android:paddingLeft="2dp"/>
+                />
+    </LinearLayout>
 
     <TextView
             android:layout_width="fill_parent"

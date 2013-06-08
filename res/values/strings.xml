@@ -4,6 +4,6 @@
     <string name="menu_settings">Settings</string>
     <string name="waiting_message">Lade Stromnetzdaten ....</string>
     <string name="blume_description">Blume</string>
-    <string name="green_loaded_energy">Grün geladene Ladungen</string>
+    <string name="green_loaded_energy">Grün geladene Ladungen:</string>
     <string name="power_state_error">Stromnetzstatus kann nicht ermittelt werden. Keine Internetverbindung?</string>
 </resources>

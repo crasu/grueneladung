@@ -3,7 +3,7 @@ package de.crasu.grueneladung.status;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import de.crasu.grueneladung.AbstractPowerGridStatusTask;
 import de.crasu.grueneladung.R;
 import roboguice.activity.RoboActivity;
@@ -12,8 +12,8 @@ import roboguice.inject.InjectView;
 import static java.lang.Math.min;
 
 public class ChargeStatusActivity extends RoboActivity {
-    @InjectView(R.id.progressBar)
-    protected ProgressBar progressBar;
+    @InjectView(R.id.chargeCount)
+    protected TextView chargeCountTextView;
     @InjectView(R.id.chargeStatusImageView)
     protected ImageView imageView;
     private ChargeCounter chargeCounter;
@@ -39,7 +39,7 @@ public class ChargeStatusActivity extends RoboActivity {
 
     private void updateView() {
         (new PowerGridStatusTask(getApplicationContext())).execute();
-        progressBar.setProgress((int) min(chargeCounter.getCount(), progressBar.getMax()));
+        chargeCountTextView.setText(Long.toString(chargeCounter.getCount()));
     }
 
     private class PowerGridStatusTask extends AbstractPowerGridStatusTask {
