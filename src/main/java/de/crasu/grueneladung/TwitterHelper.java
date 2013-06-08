@@ -5,6 +5,6 @@ import twitter4j.TwitterException;
 import java.util.List;
 
 public interface TwitterHelper {
-    List<Tweet> retrieveTweets() throws TwitterException;
+    List<Tweet> retrieveTweets();
     List<PowerGridValues> retrievePowerInformation();
 }

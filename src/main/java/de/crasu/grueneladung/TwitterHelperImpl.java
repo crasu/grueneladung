@@ -16,24 +16,23 @@ import android.util.Log;
 
 public class TwitterHelperImpl implements TwitterHelper {
     @Override
-    public List<Tweet> retrieveTweets() throws TwitterException {
+    public List<Tweet> retrieveTweets() {
         Twitter twitter = (new TwitterFactory()).getInstance();
 
         Query query = new Query("from:rwetransparent");
 
-        QueryResult result = twitter.search(query);
+        QueryResult result = null;
+        try {
+            result = twitter.search(query);
+        } catch (TwitterException e) {
+            throw new RuntimeException(e);
+        }
         return result.getTweets();
     }
 
     @Override
     public List<PowerGridValues> retrievePowerInformation() {
-        List<Tweet> tweets = null;
-        try {
-            tweets = retrieveTweets();
-        } catch (TwitterException e) {
-            // TODO error msg
-            e.printStackTrace();
-        }
+        List<Tweet> tweets = retrieveTweets();
 
         Log.i("power", "retrieved tweets");
 
