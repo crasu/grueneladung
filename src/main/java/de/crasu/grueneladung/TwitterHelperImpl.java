@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.google.inject.Inject;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.Tweet;
@@ -51,11 +50,10 @@ public class TwitterHelperImpl implements TwitterHelper {
         Matcher m = p.matcher(tweetText);
 
         if(m.find()) {
-            pgv = new PowerGridValues();
-
-            pgv.setCoal(Integer.valueOf(m.group(1)) + Integer.valueOf(m.group(2)));
-            pgv.setGas(Integer.valueOf(m.group(3)));
-            pgv.setNuclear(Integer.valueOf(m.group(4)));
+            pgv = new PowerGridValuesBuilder().
+                    withCoal(Integer.valueOf(m.group(1)) + Integer.valueOf(m.group(2))).
+                    withGas(Integer.valueOf(m.group(3))).
+                    withNuclear(Integer.valueOf(m.group(4))).build();
         }
 
         return pgv;

@@ -1,7 +1,6 @@
 package de.crasu.grueneladung;
 
 import com.google.inject.Inject;
-import roboguice.test.RobolectricRoboTestRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,10 +49,11 @@ public class PowerGridInformationRetrieverImplTest {
 
     @Test
     public void sumIsCorrect() {
-        PowerGridValues pgv = new PowerGridValues();
-        pgv.setCoal(5);
-        pgv.setGas(4);
-        pgv.setNuclear(3);
+        PowerGridValues pgv = new PowerGridValuesBuilder().
+                withCoal(5).
+                withGas(4).
+                withNuclear(3).build();
+
         
         assertThat(5 + 4 + 3, is(pgv.getOverallPower()));
     }
@@ -61,10 +61,11 @@ public class PowerGridInformationRetrieverImplTest {
     @Test
     public void belowAvgGasConsumptionIsGreen() {
         List<PowerGridValues> pgvs = initPowerGridValues();
-        PowerGridValues pgv = new PowerGridValues();
-        pgv.setCoal(5);
-        pgv.setGas(3);
-        pgv.setNuclear(3);
+        PowerGridValues pgv = new PowerGridValuesBuilder().
+                withCoal(5).
+                withGas(3).
+                withNuclear(3).build();
+
         pgvs.add(0, pgv);
 
         mockPgvs(pgvs);
@@ -72,10 +73,10 @@ public class PowerGridInformationRetrieverImplTest {
         assertThat(pgir.isEnergyGreen(), is(true));
 
         pgvs = initPowerGridValues();
-        pgv = new PowerGridValues();
-        pgv.setCoal(5);
-        pgv.setGas(5);
-        pgv.setNuclear(3);
+        pgv = new PowerGridValuesBuilder().
+                withCoal(5).
+                withGas(5).
+                withNuclear(3).build();
         pgvs.add(0, pgv);
 
         mockPgvs(pgvs);
@@ -93,10 +94,10 @@ public class PowerGridInformationRetrieverImplTest {
         List<PowerGridValues> pgvs = new ArrayList<PowerGridValues>();
         
         for(int i = 1; i < 3; i++) {
-            PowerGridValues pgv = new PowerGridValues();
-            pgv.setCoal(5 + i);
-            pgv.setGas(5 + i);
-            pgv.setNuclear(5 + i);
+            PowerGridValues pgv = new PowerGridValuesBuilder().
+                    withCoal(5 + i).
+                    withGas(5 + i).
+                    withNuclear(5 + i).build();
             
             pgvs.add(pgv);
         }

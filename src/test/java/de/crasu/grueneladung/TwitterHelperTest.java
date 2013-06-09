@@ -15,9 +15,6 @@ import twitter4j.TwitterException;
 
 @RunWith(InjectingTestRunner.class)
 public class TwitterHelperTest {
-    @Inject
-    TwitterHelper th;
-
     @Test
     public void rweTweetsAreValid() throws TwitterException {
         List<Tweet> result = (new TwitterHelperImpl()).retrieveTweets();
