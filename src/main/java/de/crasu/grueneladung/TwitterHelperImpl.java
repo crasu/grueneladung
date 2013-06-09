@@ -15,8 +15,7 @@ import twitter4j.TwitterFactory;
 import android.util.Log;
 
 public class TwitterHelperImpl implements TwitterHelper {
-    @Override
-    public List<Tweet> retrieveTweets() {
+    List<Tweet> retrieveTweets() {
         Twitter twitter = (new TwitterFactory()).getInstance();
 
         Query query = new Query("from:rwetransparent");
