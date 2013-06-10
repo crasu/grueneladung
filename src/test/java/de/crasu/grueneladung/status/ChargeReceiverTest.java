@@ -12,6 +12,7 @@ import de.crasu.grueneladung.PowerGridInformationRetriever;
 import de.crasu.grueneladung.roboGuiceMainModul;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import roboguice.RoboGuice;
@@ -42,6 +43,7 @@ public class ChargeReceiverTest {
     }
 
     @Test
+    @Ignore
     public void testHandleReceive() throws Exception {
         Intent intent = new Intent();
         intent.putExtra(BatteryManager.EXTRA_STATUS, BatteryManager.BATTERY_STATUS_FULL);

@@ -19,13 +19,16 @@ public class ChargeReceiver extends RoboBroadcastReceiver {
 
     static ChargeReceiver receiver;
     boolean counted = false;
+    boolean chargeIsGreen = false;
 
     static public void registerChargeReceiver(Context context) {
         Log.d("power", "registering charge receiver");
 
+        receiver = new ChargeReceiver();   //TODO introduce ifs to test this
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        receiver = new ChargeReceiver();
         context.getApplicationContext().registerReceiver(receiver, filter);
+
+        receiver.retrieveGridStatus(context);
     }
 
     static public void unregisterChargeReceiver(Context context) {
@@ -37,6 +40,10 @@ public class ChargeReceiver extends RoboBroadcastReceiver {
 
     ChargeCounter chargeCounter;
 
+    protected void retrieveGridStatus(Context context) {
+        (new GridStatusTask(context)).execute();
+    }
+
     @Override
     public void handleReceive(Context context, Intent intent) {
         int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
@@ -45,10 +52,10 @@ public class ChargeReceiver extends RoboBroadcastReceiver {
 
         if (status == BatteryManager.BATTERY_STATUS_FULL) {
             Log.i("power", "battery is fully charged");
+            chargeCounter = new ChargeCounter(context);
 
-            if (!counted) {
-                chargeCounter = new ChargeCounter(context);
-                (new CounterTask(context)).execute();
+            if (!counted && chargeIsGreen) {
+                chargeCounter.count();
                 counted = true;
 
                 Log.i("power", "counted charge");
@@ -57,9 +64,9 @@ public class ChargeReceiver extends RoboBroadcastReceiver {
 
     }
 
-    private class CounterTask extends RoboAsyncTask<Boolean> {
+    private class GridStatusTask extends RoboAsyncTask<Boolean> {
 
-        protected CounterTask(Context context) {
+        protected GridStatusTask(Context context) {
             super(context);
             this.context = context;
         }
@@ -70,9 +77,7 @@ public class ChargeReceiver extends RoboBroadcastReceiver {
 
         @Override
         protected void onSuccess(Boolean isGreen) {
-            if (isGreen) {
-                chargeCounter.count();
-            }
+            chargeIsGreen = isGreen;
         }
 
         @Override
