@@ -3,7 +3,6 @@ package de.crasu.grueneladung.status;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -32,7 +31,7 @@ public class ChargeReceiver extends RoboBroadcastReceiver {
     static public void unregisterChargeReceiver(Context context) {
         Log.d("power", "trying to unregister charge receiver");
 
-        if(receiver != null)
+        if (receiver != null)
             context.getApplicationContext().unregisterReceiver(receiver);
     }
 
@@ -44,10 +43,10 @@ public class ChargeReceiver extends RoboBroadcastReceiver {
 
         Log.d("power", "got intend: " + intent.toString() + " with status: " + status);
 
-        if(status == BatteryManager.BATTERY_STATUS_FULL) {
+        if (status == BatteryManager.BATTERY_STATUS_FULL) {
             Log.i("power", "battery is fully charged");
 
-            if(!counted) {
+            if (!counted) {
                 chargeCounter = new ChargeCounter(context);
                 (new CounterTask(context)).execute();
                 counted = true;
@@ -58,26 +57,20 @@ public class ChargeReceiver extends RoboBroadcastReceiver {
 
     }
 
-    private class CounterTask extends RoboAsyncTask<Boolean> { //TODO use abstract task
+    private class CounterTask extends RoboAsyncTask<Boolean> {
 
         protected CounterTask(Context context) {
             super(context);
             this.context = context;
         }
+
         public Boolean call() {
-            try {
-                System.out.print("call called\n");//TODO test code
-                return pgir.isEnergyGreen();
-            } catch (Throwable e) {
-                System.out.print("exception in call "+e.toString() +"\n");//TODO test code
-                return null; //TODO test code
-            }
+            return pgir.isEnergyGreen();
         }
 
         @Override
         protected void onSuccess(Boolean isGreen) {
-            System.out.print("success called   " + isGreen.toString() + "\n");//TODO test code
-            if(isGreen) {
+            if (isGreen) {
                 chargeCounter.count();
             }
         }
