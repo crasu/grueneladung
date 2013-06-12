@@ -5,17 +5,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import twitter4j.Query;
-import twitter4j.QueryResult;
-import twitter4j.Tweet;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
+import twitter4j.*;
 import android.util.Log;
+import twitter4j.auth.AccessToken;
 
 public class TwitterHelperImpl implements TwitterHelper {
-    List<Tweet> retrieveTweets() {
-        Twitter twitter = (new TwitterFactory()).getInstance();
+    List<Status> retrieveTweets() {
+        Twitter twitter = getTwitterInstance();
 
         Query query = new Query("from:rwetransparent");
 
@@ -25,18 +21,30 @@ public class TwitterHelperImpl implements TwitterHelper {
         } catch (TwitterException e) {
             throw new RuntimeException(e);
         }
+
         return result.getTweets();
+    }
+
+    private Twitter getTwitterInstance() {
+        Twitter twitter = (new TwitterFactory()).getInstance();
+
+        twitter.setOAuthConsumer("sc7ykQE8pt7EPnP9yl46Q", "1UnDAOIMKJuwWmebWlzaU5KruXuwTVK05W3yNpGdhDM");
+        AccessToken accessToken = new AccessToken("135220604-24qXQKuCEbO8blgKCsLzkn8vblkq79iUPRADjNRw", "nx4klUE04O4TDXmsT27LUeNhz0Py9ODy2ufPgFr8");
+
+        twitter.setOAuthAccessToken(accessToken);
+
+        return twitter;
     }
 
     @Override
     public List<PowerGridValues> retrievePowerInformation() {
-        List<Tweet> tweets = retrieveTweets();
+        List<Status> tweets = retrieveTweets();
 
         Log.i("power", "retrieved tweets");
 
         List<PowerGridValues> pgvs = new ArrayList<PowerGridValues>();
 
-        for (Tweet tweet : tweets) {
+        for (Status tweet : tweets) {
             PowerGridValues pgv = parseTweet(tweet.getText());
             pgvs.add(pgv);
         }

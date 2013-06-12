@@ -10,15 +10,15 @@ import com.google.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import twitter4j.Tweet;
+import twitter4j.Status;
 import twitter4j.TwitterException;
 
 @RunWith(InjectingTestRunner.class)
 public class TwitterHelperTest {
     @Test
     public void rweTweetsAreValid() throws TwitterException {
-        List<Tweet> result = (new TwitterHelperImpl()).retrieveTweets();
-        for (Tweet tweet : result) {
+        List<Status> result = (new TwitterHelperImpl()).retrieveTweets();
+        for (Status tweet : result) {
             String text = tweet.getText();
             assertTrue(text.matches("Braunkohle ges.: (\\d+)MW\\/ Steinkohle ges.: (\\d+)MW\\/ Gas ges.: (\\d+)MW\\/ Kernenergie ges.: (\\d+)MW/.*?"));
         }        
