@@ -22,6 +22,6 @@ Development commands
 
 * Release:
 
-    1. change AndroidMainifest.xml
+    1. increase version number in AndroidMainifest.xml
     2. run mvn clean -Prelease package
     3. upload new apk
