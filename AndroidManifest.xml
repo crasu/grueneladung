@@ -37,7 +37,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="de.crasu.grueneladung.status.ChargeReceiver">
+        <receiver android:name=".status.ChargeReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BATTERY_CHANGED"/>
             </intent-filter>

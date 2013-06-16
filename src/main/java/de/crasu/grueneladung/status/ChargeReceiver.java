@@ -17,28 +17,27 @@ public class ChargeReceiver extends RoboBroadcastReceiver {
     @Inject
     PowerGridInformationRetriever pgir;
 
-    static ChargeReceiver receiver;
+    static ChargeReceiver chargeReceiver;
     boolean counted = false;
+    ChargeCounter chargeCounter;
     boolean chargeIsGreen = false;
 
-    static public void registerChargeReceiver(Context context) {
-        Log.d("power", "registering charge receiver");
+    static public void registerChargeReceiver(Context context, ChargeReceiver chargeReceiver) {
+        Log.d("power", "registering charge chargeReceiver");
+        ChargeReceiver.chargeReceiver = chargeReceiver;
 
-        receiver = new ChargeReceiver();   //TODO introduce ifs to test this
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        context.getApplicationContext().registerReceiver(receiver, filter);
+        context.getApplicationContext().registerReceiver(chargeReceiver, filter);
 
-        receiver.retrieveGridStatus(context);
+        chargeReceiver.retrieveGridStatus(context);
     }
 
     static public void unregisterChargeReceiver(Context context) {
-        Log.d("power", "trying to unregister charge receiver");
+        Log.d("power", "trying to unregister charge chargeReceiver");
 
-        if (receiver != null)
-            context.getApplicationContext().unregisterReceiver(receiver);
+        if (chargeReceiver != null)
+            context.getApplicationContext().unregisterReceiver(chargeReceiver);
     }
-
-    ChargeCounter chargeCounter;
 
     protected void retrieveGridStatus(Context context) {
         (new GridStatusTask(context)).execute();
@@ -76,7 +75,7 @@ public class ChargeReceiver extends RoboBroadcastReceiver {
         }
 
         @Override
-        protected void onSuccess(Boolean isGreen) {
+         protected void onSuccess(Boolean isGreen) {
             chargeIsGreen = isGreen;
         }
 

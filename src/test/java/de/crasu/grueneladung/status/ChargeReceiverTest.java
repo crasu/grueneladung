@@ -22,6 +22,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@Ignore
 @RunWith(InjectingTestRunner.class)
 public class ChargeReceiverTest {
     PowerGridInformationRetriever mock = mock(PowerGridInformationRetriever.class);
@@ -43,7 +44,6 @@ public class ChargeReceiverTest {
     }
 
     @Test
-    @Ignore
     public void testHandleReceive() throws Exception {
         Intent intent = new Intent();
         intent.putExtra(BatteryManager.EXTRA_STATUS, BatteryManager.BATTERY_STATUS_FULL);
