@@ -19,3 +19,9 @@ Development commands
     adb emu "sensor set acceleration 9:0:0" 
     sleep 5
     adb emu "sensor set acceleration 0:9:0"
+
+* Release:
+
+    1. change AndroidMainifest.xml
+    2. run mvn clean -Prelease package
+    3. upload new apk
