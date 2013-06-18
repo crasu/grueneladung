@@ -9,7 +9,7 @@ import twitter4j.*;
 import android.util.Log;
 import twitter4j.auth.AccessToken;
 
-public class TwitterHelperImpl implements TwitterHelper {
+public class TwitterInformationHelper implements InformationHelper {
     List<Status> retrieveTweets() {
         Twitter twitter = getTwitterInstance();
 

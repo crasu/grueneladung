@@ -20,7 +20,7 @@ public class PowerGridInformationRetrieverImplTest {
 
     @Before
     public void setup() {
-        pgir.setTwitterHelper(mock(TwitterHelper.class));
+        pgir.setTwitterHelper(mock(InformationHelper.class));
     }
 
     @Test(expected=RuntimeException.class)
@@ -85,7 +85,7 @@ public class PowerGridInformationRetrieverImplTest {
     }
 
     private void mockPgvs(List<PowerGridValues> pgvs) {
-        TwitterHelperImpl twitterHelperMock = mock(TwitterHelperImpl.class);
+        TwitterInformationHelper twitterHelperMock = mock(TwitterInformationHelper.class);
         when(twitterHelperMock.retrievePowerInformation()).thenReturn(pgvs);
         pgir.setTwitterHelper(twitterHelperMock);
     }

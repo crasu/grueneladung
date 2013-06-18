@@ -4,14 +4,12 @@ import android.util.Log;
 import com.google.inject.Inject;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class PowerGridInformationRetrieverImpl implements PowerGridInformationRetriever {
     @Inject
-    TwitterHelper twitterHelper;
+    InformationHelper twitterHelper;
 
-    public void setTwitterHelper(TwitterHelper twitterHelper) {
+    public void setTwitterHelper(InformationHelper twitterHelper) {
         this.twitterHelper = twitterHelper;
     }
     

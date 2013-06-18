@@ -27,6 +27,11 @@
             <version>[3.0,)</version>
         </dependency>
         <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.8.5</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.8.2</version>
@@ -50,6 +55,14 @@
             <version>2.0</version>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>codehaus</id>
+            <url>http://repository.codehaus.org/org/codehaus</url>
+        </repository>
+    </repositories>
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -66,6 +79,7 @@
             </plugin>
         </plugins>
     </build>
+
     <profiles>
         <profile>
             <id>release</id>
