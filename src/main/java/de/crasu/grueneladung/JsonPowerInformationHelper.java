@@ -2,7 +2,6 @@ package de.crasu.grueneladung;
 
 import de.crasu.grueneladung.json.PowerInformation;
 import de.crasu.grueneladung.json.PowerValueMap;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
@@ -10,7 +9,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -20,18 +18,18 @@ public class JsonPowerInformationHelper implements InformationHelper {
 
     @Override
     public List<PowerGridValues> retrievePowerInformation() {
-        //TODO don't use string use stream directly
-        String response = httpDownload("http://strom-transparent.appspot.com/power");
-
-        ObjectMapper mapper = new ObjectMapper();
-
         PowerInformation pi = null;
         try {
-            pi = mapper.readValue(response, PowerInformation.class);
+            InputStream response = httpDownload("http://strom-transparent.appspot.com/power");
+            pi = (new ObjectMapper()).readValue(response, PowerInformation.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+        return convertToPowerGridValueses(pi);
+    }
+
+    private List<PowerGridValues> convertToPowerGridValueses(PowerInformation pi) {
         List<PowerGridValues> pgvs = new ArrayList<PowerGridValues>();
 
         for (PowerValueMap pv : pi) {
@@ -45,7 +43,7 @@ public class JsonPowerInformationHelper implements InformationHelper {
         return pgvs;
     }
 
-    private synchronized String httpDownload(String url) {
+    private InputStream httpDownload(String url) {
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
 
@@ -56,19 +54,7 @@ public class JsonPowerInformationHelper implements InformationHelper {
             if (status.getStatusCode() != 200) {
                 throw new RuntimeException("Invalid status code " + status.getStatusCode());
             }
-
-            HttpEntity entity = response.getEntity();
-            InputStream inputStream = entity.getContent();
-
-            ByteArrayOutputStream content = new ByteArrayOutputStream();
-
-            int readBytes = 0;
-            byte[] sBuffer = new byte[16384];
-            while ((readBytes = inputStream.read(sBuffer)) != -1) {
-                content.write(sBuffer, 0, readBytes);
-            }
-
-            return new String(content.toByteArray());
+            return response.getEntity().getContent();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
