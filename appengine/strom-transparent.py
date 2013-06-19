@@ -4,6 +4,7 @@ from google.appengine.ext import db
 from google.appengine.api import users
 import urllib2
 import re
+import time
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -12,10 +13,11 @@ class MainPage(webapp2.RequestHandler):
 
 def getPowerValues():
     l = []
-    pvs = db.GqlQuery("SELECT * FROM PowerValue")
+    pvs = db.GqlQuery("SELECT * FROM PowerValue ORDER BY time DESC")
     for pv in pvs[0:30]:
             d = {"gas": pv.gas, "steinkohle": pv.steinkohle, "braunkohle": pv.braunkohle, "kernenergie": pv.kernenergie}
             l.append(d)
+    pvs.time = int(time.time())
     return l            
 
 class Cron(webapp2.RequestHandler):
@@ -41,6 +43,7 @@ class PowerValue(db.Model):
     braunkohle = db.IntegerProperty()
     steinkohle = db.IntegerProperty()
     kernenergie = db.IntegerProperty()
+    time = db.IntegerProperty()
 
 application = webapp2.WSGIApplication([
     ('/power', MainPage),('/cron', Cron) 
