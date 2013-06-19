@@ -17,7 +17,6 @@ def getPowerValues():
     for pv in pvs[0:30]:
             d = {"gas": pv.gas, "steinkohle": pv.steinkohle, "braunkohle": pv.braunkohle, "kernenergie": pv.kernenergie}
             l.append(d)
-    pv.time = int(time.time())
     return l            
 
 class Cron(webapp2.RequestHandler):
@@ -33,6 +32,7 @@ def getValuesFromRwe():
     pv = PowerValue()
     for type in powertypes:
         setattr(pv, type, getPowerType(result, type))
+    pv.time = int(time.time())
     pv.put()
 
 def getPowerType(result, type):
