@@ -17,7 +17,7 @@ def getPowerValues():
     for pv in pvs[0:30]:
             d = {"gas": pv.gas, "steinkohle": pv.steinkohle, "braunkohle": pv.braunkohle, "kernenergie": pv.kernenergie}
             l.append(d)
-    pvs.time = int(time.time())
+    pv.time = int(time.time())
     return l            
 
 class Cron(webapp2.RequestHandler):
