@@ -1,18 +1,22 @@
 package de.crasu.grueneladung;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.inject.Inject;
+import roboguice.activity.RoboActivity;
 import roboguice.util.RoboAsyncTask;
 
 public abstract class AbstractPowerGridStatusTask extends RoboAsyncTask<Boolean> {
     @Inject
     PowerGridInformationRetriever pgir;
     Context context;
+    private final ProgressDialog progressDialog;
 
-    protected AbstractPowerGridStatusTask(Context context) {
+    protected AbstractPowerGridStatusTask(Context context, RoboActivity activity) {
         super(context);
+        progressDialog = ProgressDialog.show(activity, "", context.getString(R.string.waiting_message), true);
         this.context = context;
     }
 
@@ -24,6 +28,8 @@ public abstract class AbstractPowerGridStatusTask extends RoboAsyncTask<Boolean>
 
     @Override
     protected void onSuccess(Boolean powerState) {
+        progressDialog.dismiss();
+
         ImageView image = getImageView();
 
         if (powerState) {

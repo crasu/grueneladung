@@ -26,14 +26,12 @@ public class GridStatusActivity extends RoboActivity {
         setContentView(R.layout.activity_main);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 
-        progressDialog = ProgressDialog.show(this, "", getString(R.string.waiting_message), true);
-
-        (new PowerGridStatusTask(getApplicationContext())).execute();
+        (new PowerGridStatusTask(getApplicationContext(), this)).execute();
     }
     
     private class PowerGridStatusTask extends AbstractPowerGridStatusTask {
-        protected PowerGridStatusTask(Context context) {
-            super(context);
+        protected PowerGridStatusTask(Context context, RoboActivity activity) {
+            super(context, activity);
         }
 
         @Override
@@ -44,8 +42,6 @@ public class GridStatusActivity extends RoboActivity {
         @Override
         protected void onSuccess(Boolean powerState) {
             super.onSuccess(powerState);
-            
-            progressDialog.dismiss();
             startWindowClosingTimer();
         }
     }    

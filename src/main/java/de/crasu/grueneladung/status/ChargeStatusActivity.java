@@ -38,13 +38,13 @@ public class ChargeStatusActivity extends RoboActivity {
     }
 
     private void updateView() {
-        (new PowerGridStatusTask(getApplicationContext())).execute();
+        (new PowerGridStatusTask(getApplicationContext(), this)).execute();
         chargeCountTextView.setText(Long.toString(chargeCounter.getCount()));
     }
 
     private class PowerGridStatusTask extends AbstractPowerGridStatusTask {
-        protected PowerGridStatusTask(Context context) {
-            super(context);
+        protected PowerGridStatusTask(Context context, RoboActivity activity) {
+            super(context, activity);
         }
 
         @Override
