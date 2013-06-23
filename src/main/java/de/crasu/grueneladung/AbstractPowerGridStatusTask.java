@@ -1,6 +1,7 @@
 package de.crasu.grueneladung;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.inject.Inject;
@@ -36,5 +37,6 @@ public abstract class AbstractPowerGridStatusTask extends RoboAsyncTask<Boolean>
     @Override
     protected void onException(Exception e) {
         Toast.makeText(context, R.string.power_state_error, 4).show();
+        Log.d("grueneladung", "", e);
     }
 }
