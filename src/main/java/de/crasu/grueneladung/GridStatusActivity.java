@@ -1,9 +1,5 @@
 package de.crasu.grueneladung;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -11,13 +7,15 @@ import android.widget.ImageView;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class GridStatusActivity extends RoboActivity {
     @InjectView(R.id.gridStatusImageView)
     ImageView imageView;
 
     private static final int WINDOW_CLOSING_DELAY = 4000;
     private Timer windowClosingTimer;
-    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +26,7 @@ public class GridStatusActivity extends RoboActivity {
 
         (new PowerGridStatusTask(getApplicationContext(), this)).execute();
     }
-    
+
     private class PowerGridStatusTask extends AbstractPowerGridStatusTask {
         protected PowerGridStatusTask(Context context, RoboActivity activity) {
             super(context, activity);
@@ -44,7 +42,7 @@ public class GridStatusActivity extends RoboActivity {
             super.onSuccess(powerState);
             startWindowClosingTimer();
         }
-    }    
+    }
 
     private void startWindowClosingTimer() {
         windowClosingTimer = new Timer();
