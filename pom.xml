@@ -74,7 +74,7 @@
                         <platform>16</platform>
                     </sdk>
                 </configuration>
-                <version>3.5.0</version>
+                <version>3.6.0</version>
                 <extensions>true</extensions>
             </plugin>
         </plugins>
