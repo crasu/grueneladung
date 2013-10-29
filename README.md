@@ -27,5 +27,5 @@ Development commands
     3. upload new apk
 
 * Tweaks
-    * If the emulator runs slow: devices.system.cpu.cpufreq.ondemand.up_threshold = 85
+    * If the emulator runs slow on linux set devices.system.cpu.cpufreq.ondemand.up_threshold = 85 in /etc/sysctl.conf
     * Cannot find android sdk error in intellij => recreate project
